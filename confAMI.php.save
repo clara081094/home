@@ -51,7 +51,7 @@ function obtenerUsuarios()
         $lines=explode("\n", $wrets);
         for($i=0;$i<sizeof($lines);$i++)
         {
-                $vari=substr_replace($lines[$i],"", -1);
+                $vari=substr(substr_replace($lines[$i],"", -1),0,11);
                 $varid="CallerIDNum";
 		//echo $vars."\n";	
                 if(strcmp($vari,$varid)==0)
@@ -102,31 +102,9 @@ function unmute($channel)
         fputs($this->socket, "Action: Logoff\r\n\r\n");
 }
 
-function userSip()
+function obtenerSip()
 {
-	$this->iConfami();
-	$usuarios=array();
-	fputs($this->socket, "Action: SIPpeers\r\n\r\n");
-        fputs($this->socket, "Action: Logoff\r\n\r\n");
-        //while (!feof($this->socket)) {
-	while (!feof($this->socket)) {
-        $wrets=fread($this->socket, 4096);
-        $lines=explode("\n", $wrets);
-        for($i=0;$i<sizeof($lines);$i++)
-        {
-                $vari=substr_replace($lines[$i],"", -1);
-                $varid="Channeltype: SIP";
-                if(strcmp($vari,$varid)==0)
-                {
-		     $i++;
-	 	     $user=substr((string)substr_replace($lines[$i],"",0,12),0,-1);
-		     array_push($usuarios,$user);
-		     //return true;
-		     //echo "\n------>Este es el numero: ".$participant->getNumero()." \n chanel: ".$participant->getChannel()."\n muted: ".$participant->getMuted();
-                }
-        }}
-	//fclose($socket);
-        return $usuarios;
+
 }
 
 }

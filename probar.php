@@ -2,7 +2,7 @@
 <?php
 echo shell_exec("sudo linphonecsh init");
 echo shell_exec("sleep 2");
-echo shell_exec("sudo linphonecsh generic 'ports sip 5062'");
+echo shell_exec("sudo linphonecsh generic 'ports sip 5061'");
 echo shell_exec("sudo linphonecsh generic 'autoanswer enable'");
 echo shell_exec("sudo linphonecsh register --host 192.168.1.50 --username 11 --password password11");
 echo shell_exec("sudo linphonecsh soundcard playback 3");

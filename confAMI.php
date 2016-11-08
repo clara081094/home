@@ -129,6 +129,14 @@ function userSip()
         return $usuarios;
 }
 
+function reloadSip()
+{
+	$this->iConfami();
+        fputs($this->socket, "Action: Command\r\n");
+        fputs($this->socket, "Command: sip Reload\r\n\r\n");
+	fputs($this->socket, "Action: Logoff\r\n\r\n");
+}
+
 }
 ?>
 

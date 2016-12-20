@@ -14,8 +14,6 @@ function iConfami()
 	fputs($this->socket, "Action: Login\r\n");
         fputs($this->socket, "UserName: admin\r\n");
         fputs($this->socket, "Secret: amp111\r\n\r\n");
-	/*while (!feof($this->socket)) {
-        echo fread($this->socket, 4096); }*/
 }
 
 function conferenciaHay()
@@ -45,15 +43,17 @@ function obtenerUsuarios()
 	$this->iConfami();
 	$usuarios=array();
 	fputs($this->socket, "Action: ConfbridgeList\r\n");
+	fputs($this->socket, "Conference: 1\r\n\r\n");
         fputs($this->socket, "Action: Logoff\r\n\r\n");
+
         while (!feof($this->socket)) {
         $wrets=fread($this->socket, 4096);
         $lines=explode("\n", $wrets);
         for($i=0;$i<sizeof($lines);$i++)
         {
-                $vari=substr_replace($lines[$i],"", -1);
+                $vari=substr(substr_replace($lines[$i],"", -1),0,11);
                 $varid="CallerIDNum";
-		//echo $vars."\n";	
+		//echo $vari."\n";	
                 if(strcmp($vari,$varid)==0)
                 {
 		     $participant=new Participante();

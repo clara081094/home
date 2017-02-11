@@ -6,11 +6,14 @@ class Confami{
  private $errno = "admin";
  private $errstr = "amp111";
  private $timeout = "30";
+ //private $ip=str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet addr' | awk -F':' {'print $2'} | awk -F' ' {'print $1'}"));
+ private $ip;
  private $socket;
 
 function iConfami()
 {
-	$this->socket = fsockopen("192.168.1.50","5038", $this->errno, $this->errstr, $this->timeout);
+	$this->ip = str_replace("\n","",shell_exec("ifconfig eth0 | grep 'inet addr' | awk -F':' {'print $2'} | awk -F' ' {'print $1'}")); 
+	$this->socket = fsockopen($this->ip,"5038", $this->errno, $this->errstr, $this->timeout);
 	fputs($this->socket, "Action: Login\r\n");
         fputs($this->socket, "UserName: admin\r\n");
         fputs($this->socket, "Secret: amp111\r\n\r\n");
